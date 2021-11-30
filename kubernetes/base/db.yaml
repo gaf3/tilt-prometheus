@@ -56,12 +56,12 @@ spec:
   podMonitorSelector: {}
   resources:
     limits:
+      cpu: 400m
+      memory: 800Mi
+    requests:
       cpu: 200m
       memory: 400Mi
-    requests:
-      cpu: 100m
-      memory: 200Mi
-  enableAdminAPI: false
+  enableAdminAPI: true
 ---
 apiVersion: v1
 kind: Service
