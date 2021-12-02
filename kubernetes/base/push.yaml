@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: push
+  namespace: prometheus
+  labels:
+    app: push
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: push
+  template:
+    metadata:
+      labels:
+        app: push
+    spec:
+      containers:
+      - name: push
+        image: prom/pushgateway:v1.4.2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9091
+        readinessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          httpGet:
+            path: /
+            port: 9091
+        livenessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          httpGet:
+            path: /
+            port: 9091
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: push
+  namespace: prometheus
+  labels:
+    app: push
+spec:
+  selector:
+    app: push
+  type: ClusterIP
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9091
+    targetPort: 9091
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: push
+  namespace: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: push
+  endpoints:
+  - port: http
+    interval: 15s
+    honorLabels: true

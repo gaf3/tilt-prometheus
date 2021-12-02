@@ -1,6 +1,6 @@
 # tilt-prometheus
 
-A general Prometheus operator and instance to use locally with Kubernetes services
+A general Prometheus operator, instance and pushgateway to use locally with Kubernetes services
 
 # Requirements
 
@@ -28,3 +28,5 @@ Make sure you `make up` before trying to access Prometheus or starting any k8s s
 Hit space to bring up the web UI. You might see the 'prometheus' serive as red. Hit the refresh link next to it to turn it green. Click the `http://localhost:9090` link there to access prometheus.
 
 From within kubernetes, host (DNS) is `db.prometheus` at port `9090`.
+
+The pushgateway is at `push.prometheus` at port `9091` within kubernetes and can be access in Tilt at pusgateway. Clicking on the `http://localhost:9091` link takes you to the UI.
