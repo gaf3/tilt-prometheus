@@ -54,6 +54,8 @@ spec:
   serviceMonitorSelector: {}
   podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
+  ruleNamespaceSelector: {}
+  ruleSelector: {}
   resources:
     limits:
       cpu: 400m
